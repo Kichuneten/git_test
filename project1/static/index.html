@@ -4,15 +4,19 @@
 <head>
   <meta charset="utf-8" />
   <link rel="stylesheet" href="/static/css/style.css">
-  <title>単語帳</title>
+  <title>word</title>
 </head>
 
 <body>
-  <form method="word" action="/send">
-    type:<input name="type" /><br>
+  <form method="post" action="/send">
+    type:<select name="type">
+      <option value="ja-ch">日本語-中国語</option>
+      <option value="ja-en">日本語-英語</option>
+      <option value="en-ch">英語-中国語</option>
+    </select><br>
     front:<input name="front" /><br>
     rear:<input name="rear" /><br>
-    <br><button>追加</button>
+    <div id="form_alert_area"></div><button>投稿</button>
   </form>
 
   <ul id="words_ul">

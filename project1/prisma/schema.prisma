@@ -10,9 +10,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Words {
-  id   Int    @id @default(autoincrement())
-  type String //example: Ja>En, Ja>Ch
+model Word {
+  id    Int    @id @default(autoincrement())
+  type  String
   front String
-  rear String
+  rear  String
 }

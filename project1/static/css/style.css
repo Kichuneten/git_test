@@ -1,0 +1,38 @@
+#posts_ul {
+    list-style: none;
+    display: block;
+    width: 80vw;
+    border-bottom: 1px solid gray;
+    margin-left: 5vw;
+    padding-left: 0px;
+}
+
+#posts_ul li {
+    display: block;
+    padding-top: 10px;
+    padding-left: 0px;
+    margin-left: 0px;
+    padding-bottom: 10px;
+    border-top: 1px solid gray;
+}
+
+.post_content {
+    white-space: pre-wrap;
+}
+
+body {
+    font-size: 14px;
+}
+
+form input {
+    font-size: 14px;
+}
+
+form button {
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+form textarea {
+    font-size: 14px;
+}
