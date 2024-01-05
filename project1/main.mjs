@@ -44,7 +44,7 @@ app.get('/', async (request, response) => {
     })).reverse();
 
     //  html化
-    const words_html = this_ls_html(posts)
+    const words_html = this_ls_html(words)
 
     //  テンプレートに組み込んでsend
     const template = readFileSync("static/index.html", "utf-8");
@@ -62,11 +62,11 @@ app.get('/', async (request, response) => {
 
 app.post("/send", async (request, response) => {
     //  データベースに送る
-    await client.Post.create({ data: { type: request.body.front, front: request.body.front, rear:request.body.rear } });
+    await client.Words.create({ data: { type: request.body.type, front: request.body.front, rear: request.body.rear } });
     //  "/"にリダイレクト
     response.redirect("/");
 });
 
 
-app.listen(3200);
+app.listen(3333);
 
