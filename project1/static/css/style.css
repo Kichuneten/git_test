@@ -1,38 +1,59 @@
-#posts_ul {
+#main_area {
+    display: block;
+    font-size: 14px;
+    width: min(500px, 100vw);
+    height: 100vh;
+    position: absolute;
+    left: calc((100vw - min(500px, 100vw)) / 2);
+    background-color: aliceblue;
+}
+
+
+
+#title {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 30vh;
+    text-align: center;
+    font-size: 40px;
+}
+
+
+#menu {
     list-style: none;
-    display: block;
-    width: 80vw;
-    border-bottom: 1px solid gray;
-    margin-left: 5vw;
+    display: inline-block;
+    width: 50%;
+    height: 50vh;
+    position: absolute;
+    left: 25%;
+    top: 50vh;
     padding-left: 0px;
+    margin-top: 50px;
 }
 
-#posts_ul li {
+
+
+#menu li {
     display: block;
-    padding-top: 10px;
-    padding-left: 0px;
-    margin-left: 0px;
-    padding-bottom: 10px;
-    border-top: 1px solid gray;
+    width: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+    transition: 0.1s;
+    box-shadow: 0px 0px 2px 2px rgb(240, 248, 255), -2px -2px 3px 3px rgb(252, 253, 255), 2px 2px 3px 2px rgb(155, 162, 169);
 }
 
-.post_content {
-    white-space: pre-wrap;
+#menu li:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 2px 2px rgb(240, 248, 255), -3px -3px 4px 3px rgb(252, 253, 255), 3px 3px 5px 3px rgb(155, 162, 169);
 }
 
-body {
-    font-size: 14px;
-}
-
-form input {
-    font-size: 14px;
-}
-
-form button {
-    margin-left: 20px;
-    font-size: 16px;
-}
-
-form textarea {
-    font-size: 14px;
+.menu_atag {
+    text-decoration: none;
+    display: block;
+    font-size: 22px;
+    color: rgb(73, 73, 73);
 }

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="/static/css/words_list_style.css">
+  <!--google fonts (icons)-->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <title>word -word list</title>
+</head>
+
+<body>
+  <div id="main_area">
+
+    <div id="word_list_title">
+      <span>front</span>
+      <span>rear</span>
+    </div>
+
+
+    <form id="add_word_form" onsubmit="return add_word(this)">
+      <div id="add_form_header">Add another word:</div>
+      <div id="add_word_flex">
+        <input id="add_front" name="front" placeholder="Enter front word" /><br>
+        <input id="add_rear" name="rear" placeholder="Enter rear word" /><br>
+        <button class="material-symbols-outlined">add</button>
+      </div>
+      <div id="form_alert_area"></div>
+    </form>
+
+
+    <ul id="words_ul">
+      <!--words area-->
+    </ul>
+
+    <div id="go_back_but">
+      <a id="go_back_but_atag" class="material-symbols-outlined" href="/">
+        arrow_circle_left
+      </a>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+    //front_words_list
+    //rear_words_list
+    //scroll_set
+  </script>
+  <script type="text/javascript" src="/static/js/words_list_script.js"></script>
+</body>
+
+</html>

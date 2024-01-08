@@ -21,7 +21,7 @@ const this_ls_html = (array) => {
     return html;
 }
 
-//express appの作成
+//express appの作成.
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 
@@ -29,31 +29,113 @@ app.use(express.urlencoded({ extended: true }));
 //app.use(express.static("static"));
 app.use("/static", express.static("static"));
 
-//  get
+//  get.
+
+
+
+
+//ホーム.
 
 app.get('/', async (request, response) => {
 
-    //  投稿のデータを取得
+    //  テンプレートに組み込んでsend.
+    const template = readFileSync("static/index.html", "utf-8");
+    const html = template;
+    response.send(html);
+});
+
+
+
+
+//単語リストのページ.
+
+app.get('/list', async (request, response) => {
+
+    //  投稿のデータを取得.
     const words_data = await client.Word.findMany();
 
-    //  投稿内容と時間を合わせた文字列を配列に格納(最近30件のみ)
-    const words = (words_data.slice(words_data.length - 30, words_data.length).map((value) => {
-        return `<div class='post' id='word_no${value.id}'>
-                    <div class='post_head'>
+    // front と rear にわけて配列に格納、htmlファイルに組み込むために変数名とともにString化.
+    const front_words_list = `const front_word_list=[${words_data.map((value) => { return `"${value.front}"` })}];`;
+    const rear_words_list = `const rear_word_list=[${words_data.map((value) => { return `"${value.rear}"` })}];`;
+
+
+    //  投稿内容と時間を合わせた文字列を配列に格納(最近30件のみ).
+    const words = (words_data.map((value) => {
+        return `<div class='word' id='word_no${value.id}'>
                         <span class='front_word'>${value.front}</span>
                         <span class='rear_word'> ${value.rear}</span>
-                    </div>
+                        <form if="word_delete_form_${value.id}" onsubmit="return delete_word(${value.id},this)">
+                            <button id="word_delete_${value.id}" class="material-symbols-outlined word_delete_but">delete</button>
+                        </form>
                 </div>`
-    }));
+    })).reverse();
 
-    //  html化
+    //  html化.
     const words_html = this_ls_html(words);
 
-    //  テンプレートに組み込んでsend
-    const template = readFileSync("static/index.html", "utf-8");
+    //  テンプレートに組み込んでsend.
+    const template = readFileSync("static/words_list.html", "utf-8");
     const html = template.replace(
+        //wordのリストのhtmlを表示する.
         "<!--words area-->",
         words_html
+    ).replace(
+        //frontの配列をページのスクリプトに渡す.
+        "//front_words_list",
+        front_words_list
+    ).replace(
+        //rearの配列をページのスクリプトに渡す.
+        "//rear_words_list",
+        rear_words_list
+    );;
+    response.send(html);
+
+
+});
+
+
+app.get('/list/:scroll', async (request, response) => {
+
+    //  投稿のデータを取得.
+    const words_data = await client.Word.findMany();
+
+    // front と rear にわけて配列に格納、htmlファイルに組み込むために変数名とともにString化.
+    const front_words_list = `const front_word_list=[${words_data.map((value) => { return `"${value.front}"` })}];`;
+    const rear_words_list = `const rear_word_list=[${words_data.map((value) => { return `"${value.rear}"` })}];`;
+
+
+    //  投稿内容と時間を合わせた文字列を配列に格納(最近30件のみ).
+    const words = (words_data.map((value) => {
+        return `<div class='word' id='word_no${value.id}'>
+                        <span class='front_word'>${value.front}</span>
+                        <span class='rear_word'> ${value.rear}</span>
+                        <form if="word_delete_form_${value.id}" onsubmit="return delete_word(${value.id},this)">
+                            <button id="word_delete_${value.id}" class="material-symbols-outlined word_delete_but">delete</button>
+                        </form>
+                </div>`
+    })).reverse();
+
+    //  html化.
+    const words_html = this_ls_html(words);
+
+    //  テンプレートに組み込んでsend.
+    const template = readFileSync("static/words_list.html", "utf-8");
+    const html = template.replace(
+        //wordのリストのhtmlを表示する.
+        "<!--words area-->",
+        words_html
+    ).replace(
+        //frontの配列をページのスクリプトに渡す.
+        "//front_words_list",
+        front_words_list
+    ).replace(
+        //rearの配列をページのスクリプトに渡す.
+        "//rear_words_list",
+        rear_words_list
+    ).replace(
+        "//scroll_set",
+        `const a=document.getElementById('words_ul');
+        a.scrollTop=Math.min(a.scrollHeight,${request.params.scroll});`
     );
     response.send(html);
 
@@ -62,21 +144,25 @@ app.get('/', async (request, response) => {
 
 
 
-app.get('/select_test', async (request, response) => {
+
+
+//選択問題のページ.
+
+app.get('/choice_quiz', async (request, response) => {
 
     //  投稿のデータを取得.
     const words_data = await client.Word.findMany();
 
     // front と rear にわけて配列に格納、htmlファイルに組み込むために変数名とともにString化.
-    const fornt_words_list = `const front_word_list=[${words_data.map((value) => { return `"${value.front}"` })}];`;
+    const front_words_list = `const front_word_list=[${words_data.map((value) => { return `"${value.front}"` })}];`;
     const rear_words_list = `const rear_word_list=[${words_data.map((value) => { return `"${value.rear}"` })}];`;
 
 
     //  テンプレートに組み込んでsend.
-    const template = readFileSync("static/select_test.html", "utf-8");
+    const template = readFileSync("static/choice_quiz.html", "utf-8");
     const html = template.replace(
-        "//fornt_words_list",
-        fornt_words_list
+        "//front_words_list",
+        front_words_list
     ).replace(
         "//rear_words_list",
         rear_words_list
@@ -87,19 +173,28 @@ app.get('/select_test', async (request, response) => {
 });
 
 
-//  投稿を送ったとき.
+//  を送ったとき.
 
-app.post("/send", async (request, response) => {
-    const type = request.body.type;
+app.post("/add_word/:scroll", async (request, response) => {
     const front = request.body.front;
     const rear = request.body.rear;
 
     //  エラーなしならデータベースに送る
-    await client.Word.create({ data: { type: type, front: front, rear: rear } });
+    await client.Word.create({ data: {front: front, rear: rear } });
 
     //  "/"にリダイレクト
-    response.redirect("/");
+    response.redirect("/list/0");
 });
 
+
+
+
+app.post("/delete_word/:id/:scroll", async (request, response) => {
+    await client.Word.delete({
+        where: { id: parseInt(request.params.id, 10) }
+    });
+    //response.redirect("/:request.params.scroll");
+    response.redirect(`/list/${request.params.scroll}`);
+});
 
 app.listen(3200);

@@ -1,0 +1,59 @@
+#main_area {
+    display: block;
+    font-size: 14px;
+    width: min(500px, 100vw);
+    height: 100vh;
+    position: absolute;
+    left: calc((100vw - min(500px, 100vw)) / 2);
+    background-color: aliceblue;
+}
+
+
+#quiz_area {
+    display: block;
+    width: 100%;
+}
+
+
+/*クイズの問題のスタイル*/
+#quiz_content {
+    display: block;
+    font-size: 20px;
+    position: absolute;
+    top: 20vh;
+}
+
+
+/*選択肢のボタンのスタイル*/
+
+#quiz_options {
+    display: block;
+    width: 80%;
+    position: absolute;
+    top: 50vh;
+    left: 10%;
+}
+
+
+.option_but {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    width: 100%;
+    height: 5vh;
+    margin-top: 1vh;
+    font-size: 16px;
+    background-color: #00000000;
+}
+
+.option_but:hover {
+    transform: scale(1.05);
+}
+
+
+/*要素非表示のためのスタイルv*/
+.hide {
+    opacity: 0;
+    display: none;
+}
