@@ -9,6 +9,31 @@
 }
 
 
+
+/*homeに戻るボタン*/
+
+#go_back_but {
+    display: block;
+    font-size: 50px;
+    position: absolute;
+    top: 5vh;
+    left: 20px;
+}
+
+
+#go_back_but_atag {
+    text-decoration: none;
+    display: block;
+    font-size: 50px;
+    color: black;
+}
+
+#go_back_but_atag:hover {
+    transform: scale(1.1);
+    color: black;
+}
+
+
 /*上のタイトル(front/rearってやつ)*/
 
 #word_list_title {
@@ -153,26 +178,3 @@
     width: 40px;
 }
 
-
-/*homeに戻るボタン*/
-
-#go_back_but {
-    display: block;
-    font-size: 50px;
-    position: absolute;
-    top: 5vh;
-    left: 20px;
-}
-
-
-#go_back_but_atag {
-    text-decoration: none;
-    display: block;
-    font-size: 50px;
-    color: black;
-}
-
-#go_back_but_atag:hover {
-    transform: scale(1.1);
-    color: black;
-}

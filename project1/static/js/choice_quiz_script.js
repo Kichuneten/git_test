@@ -111,3 +111,12 @@ function end_quiz() {
 }
 
 window.addEventListener("load", main(total_quiz_num));
+
+
+
+
+function go_back_home() {
+    if (confirm("Do u wanna quit this quiz and go back home?\n( The progress won't be memorized. )")) {
+        window.location.href = "/";
+    }
+}
