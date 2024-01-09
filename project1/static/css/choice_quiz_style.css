@@ -80,8 +80,77 @@
 }
 
 
+
+/*結果表示の部分のスタイル*/
+#result_area {
+    display: inline-block;
+    width: 70%;
+    position: absolute;
+    left: 15%;
+    top: 20vh;
+}
+
+#result_score {
+    display: flex;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#score {
+    font-size: 35px;
+}
+
+#max_score {
+    font-size: 20px;
+}
+
+#detail_head {
+    display: block;
+    width: 100%;
+    margin-top: 8vh;
+    text-align: center;
+}
+
+#result_detail {
+    display: block;
+    width: 100%;
+    font-size: 30px;
+    margin-top: 8vh;
+}
+
+.result_line {
+    display: flex;
+    width: 100%;
+    font-size: 15px;
+    line-height: 30px;
+}
+
+.result_line .num {
+    display: block;
+    width: 10%;
+    text-align: left;
+}
+
+.result_line .left {
+    display: block;
+    width: 45%;
+    text-align: center;
+}
+
+
+.result_line .right {
+    display: block;
+    width: 45%;
+    text-align: center;
+}
+
 /*要素非表示のためのスタイルv*/
 .hide {
-    opacity: 0;
-    display: none;
+    /*なんかうまく適用されないから!importantで脳筋解決する*/
+    opacity: 0 !important;
+    display: none !important;
 }

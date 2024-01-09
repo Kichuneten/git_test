@@ -14,4 +14,7 @@ model Word {
   id    Int    @id @default(autoincrement())
   front String
   rear  String
+  addedDate DateTime  @default(now()) @db.Timestamp(0)
+  lastChecked DateTime  @default(now()) @db.Timestamp(0)
+  lastIsCorrect Boolean @default(true)
 }

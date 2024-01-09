@@ -150,10 +150,10 @@ app.get('/list/:scroll', async (request, response) => {
 
 app.get('/choice_quiz', async (request, response) => {
 
-    //  投稿のデータを取得.
+    //  単語のデータを取得.
     const words_data = await client.Word.findMany();
 
-    // front と rear にわけて配列に格納、htmlファイルに組み込むために変数名とともにString化.
+    // すべての単語でデータをfront と rear にわけて配列に格納、htmlファイルに組み込むために変数名とともにString化.
     const front_words_list = `const front_word_list=[${words_data.map((value) => { return `"${value.front}"` })}];`;
     const rear_words_list = `const rear_word_list=[${words_data.map((value) => { return `"${value.rear}"` })}];`;
 
@@ -173,14 +173,15 @@ app.get('/choice_quiz', async (request, response) => {
 });
 
 
-//  を送ったとき.
+//  単語を追加するフォームを送ったとき.
 
 app.post("/add_word/:scroll", async (request, response) => {
     const front = request.body.front;
     const rear = request.body.rear;
+    const date = Date.now();
 
     //  エラーなしならデータベースに送る
-    await client.Word.create({ data: {front: front, rear: rear } });
+    await client.Word.create({ data: { front: front, rear: rear, addedDate: date, lastChecked: date ,lastIsCorrect:true} });
 
     //  "/"にリダイレクト
     response.redirect("/list/0");

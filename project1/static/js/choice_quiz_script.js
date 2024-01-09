@@ -29,6 +29,8 @@ let is_corrects = [];
 let quiz_number = 0;
 let correct_option_num = 0;
 
+let state = 0;//0: クイズ中, 1: クイズ後
+
 const quiz_area = document.getElementById("quiz_area");
 const quiz_content_area = document.getElementById("quiz_content");
 const quiz_option_area = document.getElementById("quiz_options");
@@ -39,6 +41,7 @@ function main(n) {
     result_area.classList.add("hide");
     quiz_numbers = gen_random_nums(n, front_word_list.length - 1);
     console.log(quiz_numbers)
+    state = 0;
     show_quiz();
 }
 
@@ -94,6 +97,8 @@ const result_detail_area = document.getElementById("result_detail");
 
 
 function end_quiz() {
+    state = 1;
+
     quiz_area.classList.add("hide");
     result_area.classList.remove("hide");
 
@@ -101,13 +106,30 @@ function end_quiz() {
     result_detail_area.innerHTML = (is_corrects.map((value, index) => {
         if (value) {//correct
             correct_num++;
-            return `<div>${index + 1}.⭕️${front_word_list[quiz_numbers[index]]} = ${rear_word_list[quiz_numbers[index]]}</div>`;
+            return `<div class="result_line">
+            <span class="num">${index + 1}.⭕️</span>
+            <span class="left">${front_word_list[quiz_numbers[index]]}</span>
+            <span> = </span>
+            <span class="right">${rear_word_list[quiz_numbers[index]]}</span>
+             </div>`;
         } else {//wrong
-            return `<div>${index + 1}.❌${front_word_list[quiz_numbers[index]]} = ${rear_word_list[quiz_numbers[index]]}</div>`;
+            return `<div class="result_line">
+                <div class="left">
+                    <span class="num">${index + 1}.❌</span>
+                    <span>${front_word_list[quiz_numbers[index]]}</span>
+                </div>
+                <div class="right">
+                    <span> = </span>
+                    <span>${rear_word_list[quiz_numbers[index]]}</span>
+                </div>
+            </div>`;
         }
     })).join("");
 
-    result_score_area.textContent = `your score is ${correct_num}/${total_quiz_num}!`;
+    result_score_area.innerHTML = `<span>
+    <span id="score">${correct_num}</span>
+    <span id="max_score">点/${total_quiz_num}</span>
+    <span></span>`;
 }
 
 window.addEventListener("load", main(total_quiz_num));
@@ -116,7 +138,11 @@ window.addEventListener("load", main(total_quiz_num));
 
 
 function go_back_home() {
-    if (confirm("Do u wanna quit this quiz and go back home?\n( The progress won't be memorized. )")) {
+    if (state == 1) {
+        if (confirm("Do u wanna quit this quiz and go back home?\n( The progress won't be memorized. )")) {
+            window.location.href = "/";
+        }
+    } else {
         window.location.href = "/";
     }
 }
