@@ -157,16 +157,23 @@ app.get('/choice_quiz', async (request, response) => {
     const front_words_list = `const front_word_list=[${words_data.map((value) => { return `"${value.front}"` })}];`;
     const rear_words_list = `const rear_word_list=[${words_data.map((value) => { return `"${value.rear}"` })}];`;
 
-
     //  テンプレートに組み込んでsend.
     const template = readFileSync("static/choice_quiz.html", "utf-8");
-    const html = template.replace(
+    let html = template.replace(
         "//front_words_list",
         front_words_list
     ).replace(
         "//rear_words_list",
         rear_words_list
     );
+
+    //登録単語数が10に満たないときはそれを問題数にする(初期値は10).
+    if (words_data.length < 10) {
+        html = html.replace(
+            "const total_quiz_num = 10 //問題数",
+            `const total_quiz_num = ${words_data.length} //問題数`
+        );
+    }
     response.send(html);
 
 
