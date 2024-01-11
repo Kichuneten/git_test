@@ -178,10 +178,10 @@ app.get('/choice_quiz', async (request, response) => {
 app.post("/add_word/:scroll", async (request, response) => {
     const front = request.body.front;
     const rear = request.body.rear;
-    const date = Date.now();
+    const date = new Date().toISOString();
 
     //  エラーなしならデータベースに送る
-    await client.Word.create({ data: { front: front, rear: rear, addedDate: date, lastChecked: date ,lastIsCorrect:true} });
+    await client.Word.create({ data: { front: front, rear: rear, addedDate: date, lastChecked: date, lastIsCorrect: true } });
 
     //  "/"にリダイレクト
     response.redirect("/list/0");
